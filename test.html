@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LOVE</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #f9f9ff, #e8f0ff);
+      font-family: "Microsoft YaHei", sans-serif;
+      overflow: hidden;
+      height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .card {
+      position: absolute;
+      padding: 10px 20px;
+      border-radius: 16px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+      color: #333;
+      font-size: 16px;
+      font-weight: 500;
+      background: white;
+      opacity: 0.9;
+      animation: floatUp linear infinite, fadeInOut ease-in-out infinite;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.1);
+      opacity: 1;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.9; }
+      50% { transform: translateY(50vh) rotate(2deg); opacity: 1; }
+      100% { transform: translateY(-120vh) rotate(-3deg); opacity: 0; }
+    }
+
+    @keyframes fadeInOut {
+      0%, 100% { opacity: 0; }
+      20%, 80% { opacity: 1; }
+    }
+
+    @media (max-width: 600px) {
+      .card { font-size: 14px; padding: 8px 14px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="container"></div>
+
+  <script>
+    const messages = [
+      "我爱你！",
+      "I love you!"
+    ];
+
+    const colors = ["#fde2e4", "#cfe2ff", "#e2f0cb", "#fff3cd", "#d1e7dd", "#f8d7da", "#e3d5ca", "#f0efeb"];
+
+    const container = document.getElementById("container");
+
+    function createCard() {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.textContent = messages[Math.floor(Math.random() * messages.length)];
+      card.style.left = Math.random() * 80 + "%";
+      card.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      const duration = 8 + Math.random() * 6;
+      card.style.animationDuration = duration + "s, " + duration + "s";
+
+      container.appendChild(card);
+
+      // 动画结束后移除卡片
+      setTimeout(() => {
+        card.remove();
+      }, duration * 1000);
+    }
+
+    // 每隔1秒生成一张新卡片
+    setInterval(createCard, 100);
+  </script>
+</body>
+</html>

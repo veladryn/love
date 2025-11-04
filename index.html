@@ -60,16 +60,19 @@
   </style>
 </head>
 <body>
+  <audio id="bgm" src="music.mp3" autoplay loop muted></audio>
+
   <div class="container" id="container"></div>
 
   <script>
     const messages = [
-      "我爱你！",
-      "I love you!"
+      "我爱你",
+      "I love you!",
+      "我想你了",
+      "我好想你"
     ];
 
     const colors = ["#fde2e4", "#cfe2ff", "#e2f0cb", "#fff3cd", "#d1e7dd", "#f8d7da", "#e3d5ca", "#f0efeb"];
-
     const container = document.getElementById("container");
 
     function createCard() {
@@ -80,17 +83,20 @@
       card.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
       const duration = 8 + Math.random() * 6;
       card.style.animationDuration = duration + "s, " + duration + "s";
-
       container.appendChild(card);
 
-      // 动画结束后移除卡片
       setTimeout(() => {
         card.remove();
       }, duration * 1000);
     }
 
-    // 每隔1秒生成一张新卡片
     setInterval(createCard, 100);
+
+    const bgm = document.getElementById("bgm");
+    document.body.addEventListener("click", () => {
+      bgm.muted = false;
+      bgm.play();
+    }, { once: true });
   </script>
 </body>
 </html>
